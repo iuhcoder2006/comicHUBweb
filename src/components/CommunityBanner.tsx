@@ -1,26 +1,27 @@
 export function CommunityBanner() {
   return (
-    <div className="mx-auto mt-6 max-w-[1280px] px-10 max-md:px-5">
-      <div className="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-white/[.06] bg-gradient-to-r from-[#16163a] to-[#1a0a2e] px-6 py-4">
-        <div className="flex items-center gap-4">
-          <div className="flex size-10 items-center justify-center rounded-xl bg-[#e94560]/15 text-[#e94560]">
-            <i className="fas fa-users text-lg" />
+    <div className="mx-auto mt-4 max-w-[1280px] px-6 max-md:px-4">
+      <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-white/[0.06] bg-[#181825] px-5 py-3">
+        <div className="flex items-center gap-3">
+          <div className="flex size-9 items-center justify-center rounded-lg bg-[#e94560]/10 text-[#e94560]">
+            <i className="fas fa-users text-sm" />
           </div>
           <div>
-            <h5 className="text-xs font-bold uppercase tracking-wider text-[#e94560]">Cộng Đồng</h5>
-            <p className="text-xs text-white/50">Tham gia để cập nhật và ủng hộ ComicHub!</p>
+            <span className="text-xs font-bold uppercase tracking-wider text-[#e94560]">Cộng Đồng</span>
+            <p className="text-xs text-white/50">Tham gia cập nhật và ủng hộ ComicHub!</p>
           </div>
         </div>
-        <div className="flex flex-wrap gap-2">
-          <a href="#" className="flex items-center gap-2 rounded-lg bg-[#1877f2]/15 px-3 py-2 text-xs font-medium text-[#1877f2] transition hover:bg-[#1877f2]/25">
-            <i className="fab fa-facebook" /> Facebook
-          </a>
-          <a href="#" className="flex items-center gap-2 rounded-lg bg-[#5865f2]/15 px-3 py-2 text-xs font-medium text-[#5865f2] transition hover:bg-[#5865f2]/25">
-            <i className="fab fa-discord" /> Discord
-          </a>
-          <a href="#" className="flex items-center gap-2 rounded-lg bg-[#0088cc]/15 px-3 py-2 text-xs font-medium text-[#0088cc] transition hover:bg-[#0088cc]/25">
-            <i className="fab fa-telegram" /> Telegram
-          </a>
+        <div className="flex flex-wrap gap-1.5">
+          {[
+            { icon: "fab fa-facebook", label: "Facebook", color: "text-[#1877f2] hover:bg-[#1877f2]/15" },
+            { icon: "fab fa-discord", label: "Discord", color: "text-[#5865f2] hover:bg-[#5865f2]/15" },
+            { icon: "fab fa-telegram", label: "Telegram", color: "text-[#0088cc] hover:bg-[#0088cc]/15" },
+          ].map((s) => (
+            <a key={s.label} href="#"
+              className={`flex cursor-pointer items-center gap-1.5 rounded-lg border border-white/10 px-3 py-1.5 text-xs font-medium text-white/60 transition hover:border-transparent ${s.color}`}>
+              <i className={s.icon} /> {s.label}
+            </a>
+          ))}
         </div>
       </div>
     </div>

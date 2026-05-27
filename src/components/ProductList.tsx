@@ -32,25 +32,22 @@ export function ProductList() {
   }, [comics, searchQuery, currentGenre, currentSort]);
 
   return (
-    <section className="products-section mx-auto max-w-[1280px] px-10 py-8 max-md:px-5 max-md:py-6">
+    <section className="mx-auto max-w-[1280px] px-6 py-8 max-md:px-4 max-md:py-6">
       <AdminBar />
 
-      <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
-        <h3 className="text-xl font-bold max-sm:text-lg">
+      <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
+        <h3 className="text-lg font-bold">
           <i className="fas fa-layer-group mr-2 text-[#e94560]" />
           Danh sách truyện
         </h3>
         <div className="flex gap-1.5">
           {SORT_OPTIONS.map((opt) => (
-            <button
-              key={opt.value}
-              onClick={() => setSort(opt.value)}
-              className={`cursor-pointer rounded-lg border px-4 py-1.5 text-xs font-medium transition ${
+            <button key={opt.value} onClick={() => setSort(opt.value)}
+              className={`cursor-pointer rounded-md border px-3 py-1 text-xs font-medium transition ${
                 currentSort === opt.value
-                  ? "border-[#e94560] bg-[#e94560]/15 text-[#e94560]"
-                  : "border-white/[.08] bg-transparent text-[#888] hover:border-[#e94560] hover:bg-[#e94560]/15 hover:text-[#e94560]"
-              }`}
-            >
+                  ? "border-[#e94560] bg-[#e94560]/10 text-[#e94560]"
+                  : "border-white/[0.06] bg-transparent text-[#555] hover:border-[#e94560] hover:text-[#e94560]"
+              }`}>
               {opt.label}
             </button>
           ))}
@@ -58,12 +55,12 @@ export function ProductList() {
       </div>
 
       {filtered.length === 0 ? (
-        <div className="col-span-full py-20 text-center text-[#666]">
-          <i className="fas fa-search mb-4 block text-5xl" />
-          <p className="text-lg">Không tìm thấy sản phẩm nào.</p>
+        <div className="py-20 text-center text-[#555]">
+          <i className="fas fa-search mb-3 block text-4xl opacity-40" />
+          <p className="text-base">Không tìm thấy sản phẩm nào.</p>
         </div>
       ) : (
-        <div className="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-5 max-md:grid-cols-[repeat(auto-fill,minmax(160px,1fr))] max-md:gap-3.5 max-sm:grid-cols-2 max-sm:gap-2.5">
+        <div className="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-4 max-md:grid-cols-[repeat(auto-fill,minmax(160px,1fr))] max-sm:grid-cols-2 max-sm:gap-3">
           {filtered.map((c) => (
             <ProductCard key={c.id} comic={c} />
           ))}

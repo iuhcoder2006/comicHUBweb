@@ -16,19 +16,21 @@ function AppInner() {
   const [authOpen, setAuthOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-[#0b0b1a] text-[#e0e0e0]">
+    <div className="min-h-screen bg-[#0f0f1a]">
       <Header onCartToggle={() => setCartOpen((v) => !v)} onAuthOpen={() => setAuthOpen(true)} />
       <Hero />
       <QuickNav />
       <CommunityBanner />
       <GenreBar />
       <ProductList />
-      <footer className="mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-white/[.05] px-10 py-8 max-md:px-5">
-        <span className="text-lg font-bold">
-          <i className="fas fa-book-open mr-2 text-[#e94560]" />
-          ComicHub
-        </span>
-        <p className="text-xs opacity-40">&copy; 2026 ComicHub. Kho truyện tranh số 1 Việt Nam.</p>
+      <footer className="border-t border-white/[0.06] bg-[#181825] px-6 py-6 max-md:px-4">
+        <div className="mx-auto flex max-w-[1280px] flex-wrap items-center justify-between gap-3">
+          <span className="text-base font-bold">
+            <i className="fas fa-book-open mr-1.5 text-[#e94560]" />
+            ComicHub
+          </span>
+          <p className="text-xs text-[#555]">&copy; 2026 ComicHub. Kho truyện tranh số 1 Việt Nam.</p>
+        </div>
       </footer>
       <ProductModal />
       <ComicDetail />
