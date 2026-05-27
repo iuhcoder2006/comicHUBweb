@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useComicStore } from "../store/comicStore";
 import { timeAgo, formatNumber } from "../types";
+import { FEATURED_IDS } from "../data/seed";
 
 export function Hero() {
-  const featured = useComicStore((s) => s.getFeatured());
+  const comics = useComicStore((s) => s.comics);
   const selectComic = useComicStore((s) => s.selectComic);
   const openModal = useComicStore((s) => s.openModal);
   const [current, setCurrent] = useState(0);
+  const featured = useMemo(() => FEATURED_IDS.map((id) => comics.find((c) => c.id === id)).filter(Boolean) as import("../types").Comic[], [comics]);
 
   if (featured.length === 0) return null;
 
