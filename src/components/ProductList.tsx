@@ -6,6 +6,8 @@ import type { SortMode } from "../types";
 
 const SORT_OPTIONS: { value: SortMode; label: string }[] = [
   { value: "default", label: "Mặc định" },
+  { value: "views", label: "Xem nhiều" },
+  { value: "latest", label: "Mới nhất" },
   { value: "price-asc", label: "Giá: Thấp→Cao" },
   { value: "price-desc", label: "Giá: Cao→Thấp" },
   { value: "name", label: "A→Z" },
@@ -16,6 +18,7 @@ export function ProductList() {
   const searchQuery = useComicStore((s) => s.searchQuery);
   const currentGenre = useComicStore((s) => s.currentGenre);
   const currentSort = useComicStore((s) => s.currentSort);
+  const currentFilter = useComicStore((s) => s.currentFilter);
   const setSort = useComicStore((s) => s.setSort);
 
   const filtered = useMemo(() => {
@@ -23,13 +26,16 @@ export function ProductList() {
     let result = comics.filter(
       (c) =>
         (c.name.toLowerCase().includes(q) || c.author.toLowerCase().includes(q)) &&
-        (currentGenre === "all" || c.genre === currentGenre),
+        (currentGenre === "all" || c.genre === currentGenre) &&
+        (currentFilter === "all" || (currentFilter === "hot" && c.isHot) || (currentFilter === "completed" && c.status === "completed")),
     );
     if (currentSort === "price-asc") result.sort((a, b) => a.price - b.price);
     else if (currentSort === "price-desc") result.sort((a, b) => b.price - a.price);
     else if (currentSort === "name") result.sort((a, b) => a.name.localeCompare(b.name));
+    else if (currentSort === "views") result.sort((a, b) => b.views - a.views);
+    else if (currentSort === "latest") result.sort((a, b) => new Date(b.lastChapterDate).getTime() - new Date(a.lastChapterDate).getTime());
     return result;
-  }, [comics, searchQuery, currentGenre, currentSort]);
+  }, [comics, searchQuery, currentGenre, currentSort, currentFilter]);
 
   return (
     <section className="mx-auto max-w-[1280px] px-6 py-8 max-md:px-4 max-md:py-6">

@@ -13,6 +13,8 @@ export function Header({ onCartToggle, onAuthOpen }: Props) {
   const searchQuery = useComicStore((s) => s.searchQuery);
   const setSearchQuery = useComicStore((s) => s.setSearchQuery);
   const setGenre = useComicStore((s) => s.setGenre);
+  const setSort = useComicStore((s) => s.setSort);
+  const setFilter = useComicStore((s) => s.setFilter);
   const totalItems = useCartStore((s) => s.totalItems());
   const currentUser = useUserStore((s) => s.currentUser);
   const logout = useUserStore((s) => s.logout);
@@ -110,7 +112,7 @@ export function Header({ onCartToggle, onAuthOpen }: Props) {
 
       <nav className="hidden border-b border-white/[0.06] bg-[#181825]/95 backdrop-blur-sm md:block">
         <ul className="mx-auto flex h-[44px] max-w-[1280px] items-center gap-1 px-6 text-sm">
-          <li><button onClick={() => selectComic(null)} className="cursor-pointer rounded-md px-3 py-1.5 text-sm text-white/70 transition hover:bg-[#252538] hover:text-white">Trang chủ</button></li>
+          <li><button onClick={() => { selectComic(null); setFilter("all"); setSort("default"); }} className="cursor-pointer rounded-md px-3 py-1.5 text-sm text-white/70 transition hover:bg-[#252538] hover:text-white">Trang chủ</button></li>
           <li ref={genreRef} className="relative">
             <button onClick={() => setGenreOpen(!genreOpen)} className="flex cursor-pointer items-center gap-1 rounded-md px-3 py-1.5 text-sm text-white/70 transition hover:bg-[#252538] hover:text-white">
               Thể loại <i className="fas fa-caret-down text-[10px]" />
@@ -119,7 +121,7 @@ export function Header({ onCartToggle, onAuthOpen }: Props) {
               <div className="absolute left-0 top-full z-50 mt-1.5 w-[560px] rounded-xl border border-white/10 bg-[#1e1e30] p-4 shadow-2xl">
                 <div className="grid grid-cols-4 gap-1">
                   {genreEntries.map(([val, label]) => (
-                    <button key={val} onClick={() => { setGenre(val); setGenreOpen(false); }}
+                    <button key={val} onClick={() => { setGenre(val); setGenreOpen(false); setFilter("all"); }}
                       className="cursor-pointer rounded-md px-2.5 py-1.5 text-left text-xs text-white/60 transition hover:bg-[#252538] hover:text-[#e94560]">
                       {label}
                     </button>
@@ -128,12 +130,12 @@ export function Header({ onCartToggle, onAuthOpen }: Props) {
               </div>
             )}
           </li>
-          <li><button className="cursor-pointer rounded-md px-3 py-1.5 text-sm text-white/70 transition hover:bg-[#252538] hover:text-white">Xếp hạng</button></li>
-          <li><button onClick={() => selectComic(null)} className="cursor-pointer rounded-md px-3 py-1.5 text-sm text-white/70 transition hover:bg-[#252538] hover:text-white">Mới cập nhật</button></li>
+          <li><button onClick={() => { setSort("views"); setFilter("all"); }} className="cursor-pointer rounded-md px-3 py-1.5 text-sm text-white/70 transition hover:bg-[#252538] hover:text-white">Xếp hạng</button></li>
+          <li><button onClick={() => { setSort("latest"); setFilter("all"); }} className="cursor-pointer rounded-md px-3 py-1.5 text-sm text-white/70 transition hover:bg-[#252538] hover:text-white">Mới cập nhật</button></li>
           <li className="ml-auto flex items-center gap-1">
-            <button className="cursor-pointer rounded-md border border-white/10 px-3 py-1.5 text-xs text-white/60 transition hover:border-[#e94560] hover:text-[#e94560]">Manhwa</button>
-            <button className="cursor-pointer rounded-md border border-white/10 px-3 py-1.5 text-xs text-white/60 transition hover:border-[#e94560] hover:text-[#e94560]">Manhua</button>
-            <button className="cursor-pointer rounded-md border border-white/10 px-3 py-1.5 text-xs text-white/60 transition hover:border-[#e94560] hover:text-[#e94560]">Manga</button>
+            <button onClick={() => { setGenre("manhwa"); setFilter("all"); }} className="cursor-pointer rounded-md border border-white/10 px-3 py-1.5 text-xs text-white/60 transition hover:border-[#e94560] hover:text-[#e94560]">Manhwa</button>
+            <button onClick={() => { setGenre("manhua"); setFilter("all"); }} className="cursor-pointer rounded-md border border-white/10 px-3 py-1.5 text-xs text-white/60 transition hover:border-[#e94560] hover:text-[#e94560]">Manhua</button>
+            <button onClick={() => { setGenre("manga"); setFilter("all"); }} className="cursor-pointer rounded-md border border-white/10 px-3 py-1.5 text-xs text-white/60 transition hover:border-[#e94560] hover:text-[#e94560]">Manga</button>
           </li>
         </ul>
       </nav>

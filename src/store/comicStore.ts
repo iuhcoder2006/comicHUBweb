@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import type { Comic, Genre, SortMode } from "../types";
+import type { Comic, Genre, SortMode, FilterMode } from "../types";
 import { SEED_COMICS, FEATURED_IDS } from "../data/seed";
 
 const STORAGE_KEY = "comichub_comics";
@@ -21,12 +21,14 @@ interface ComicStore {
   searchQuery: string;
   currentGenre: Genre | "all";
   currentSort: SortMode;
+  currentFilter: FilterMode;
   editingId: number | null;
   modalOpen: boolean;
   selectedComicId: number | null;
   setSearchQuery: (q: string) => void;
   setGenre: (genre: Genre | "all") => void;
   setSort: (sort: SortMode) => void;
+  setFilter: (filter: FilterMode) => void;
   openModal: (id?: number | null) => void;
   closeModal: () => void;
   saveComic: (data: Omit<Comic, "id" | "chapters" | "views" | "followers" | "lastChapterDate" | "rating" | "isHot" | "status">) => void;
@@ -45,6 +47,7 @@ export const useComicStore = create<ComicStore>((set, get) => ({
   searchQuery: "",
   currentGenre: "all",
   currentSort: "default",
+  currentFilter: "all",
   editingId: null,
   modalOpen: false,
   selectedComicId: null,
@@ -52,6 +55,7 @@ export const useComicStore = create<ComicStore>((set, get) => ({
   setSearchQuery: (q) => set({ searchQuery: q }),
   setGenre: (genre) => set({ currentGenre: genre }),
   setSort: (sort) => set({ currentSort: sort }),
+  setFilter: (filter) => set({ currentFilter: filter }),
 
   openModal: (id = null) => set({ modalOpen: true, editingId: id ?? null }),
   closeModal: () => set({ modalOpen: false, editingId: null }),

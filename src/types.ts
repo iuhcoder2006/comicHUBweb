@@ -63,7 +63,8 @@ export interface User {
   history: { comicId: number; chapterId: number; timestamp: number }[];
 }
 
-export type SortMode = "default" | "price-asc" | "price-desc" | "name";
+export type SortMode = "default" | "price-asc" | "price-desc" | "name" | "views" | "latest";
+export type FilterMode = "all" | "hot" | "completed";
 
 export const GENRE_LABELS: Record<Genre, string> = {
   action: "Action",
